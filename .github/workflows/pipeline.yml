@@ -1,0 +1,17 @@
+name: pipeline
+on:
+  push:
+    branches:
+      - master
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: web_build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker-compose -f tasks/ci/docker-compose.yml build web_build
+          docker-compose -f tasks/ci/docker-compose.yml run web_build
+          docker-compose -f tasks/ci/docker-compose.yml down

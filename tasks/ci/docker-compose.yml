@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web_build:
+    build:
+      context: .
+      dockerfile: web_build.Dockerfile
+    volumes:
+      - ../..:/app
+    working_dir: /app
+    environment:
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+    command: ./tasks/ci/web_build.sh
