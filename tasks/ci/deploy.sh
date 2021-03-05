@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-netlify deploy --dir=web/out
+netlify deploy --dir=web/out --prod
