@@ -1,3 +1,3 @@
 FROM node:12
 
-RUN npm install -g netlify-cli
+RUN npm install -g --unsafe-perm=true netlify-cli
