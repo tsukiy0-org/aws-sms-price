@@ -1,8 +1,14 @@
 import React from "react";
 import Head from "next/head";
+import { GetStaticProps } from "next";
 import styles from "../styles/Home.module.css";
+import { PriceList } from "../models/PriceList";
 
-const Home: React.FC = () => {
+const Home: React.FC<{
+  priceList: PriceList;
+}> = ({ priceList }) => {
+  // eslint-disable-next-line no-console
+  console.log(priceList);
   return (
     <div className={styles.container}>
       <Head>
@@ -67,3 +73,17 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+export const getStaticProps: GetStaticProps<{
+  priceList: PriceList;
+}> = async () => {
+  const res = await fetch(
+    "https://s3.amazonaws.com/aws-sms-pricing-info-prod-us-east-1/smsPricesAndDeliverability-latest.json",
+  );
+
+  return {
+    props: {
+      priceList: await res.json(),
+    },
+  };
+};
