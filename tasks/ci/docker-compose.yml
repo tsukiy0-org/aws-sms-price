@@ -10,3 +10,13 @@ services:
     environment:
       GITHUB_TOKEN: ${GITHUB_TOKEN}
     command: ./tasks/ci/web_build.sh
+  deploy:
+    build:
+      context: .
+      dockerfile: deploy.Dockerfile
+    volumes:
+      - ../..:/app
+    working_dir: /app
+    environment:
+      NETLIFY_AUTH_TOKEN: ${NETLIFY_AUTH_TOKEN}
+    command: ./tasks/ci/deploy.sh

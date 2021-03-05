@@ -15,3 +15,10 @@ jobs:
           docker-compose -f tasks/ci/docker-compose.yml build web_build
           docker-compose -f tasks/ci/docker-compose.yml run web_build
           docker-compose -f tasks/ci/docker-compose.yml down
+      - name: deploy
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          docker-compose -f tasks/ci/docker-compose.yml build deploy
+          docker-compose -f tasks/ci/docker-compose.yml run deploy
+          docker-compose -f tasks/ci/docker-compose.yml down
