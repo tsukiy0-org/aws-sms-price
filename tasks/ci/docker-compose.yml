@@ -19,4 +19,5 @@ services:
     working_dir: /app
     environment:
       NETLIFY_AUTH_TOKEN: ${NETLIFY_AUTH_TOKEN}
+      NETLIFY_SITE_ID: ${NETLIFY_SITE_ID}
     command: ./tasks/ci/deploy.sh

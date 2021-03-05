@@ -18,6 +18,7 @@ jobs:
       - name: deploy
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
           docker-compose -f tasks/ci/docker-compose.yml build deploy
           docker-compose -f tasks/ci/docker-compose.yml run deploy
