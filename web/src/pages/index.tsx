@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { GetStaticProps } from "next";
 import { AwsPriceList } from "../models/AwsPriceList";
-import { Price, toPriceList } from "../models/Price";
+import {
+  Direction,
+  noOpFilter,
+  Price,
+  filterBySearch,
+  sortByCountry,
+  sortByPromoPrice,
+  sortByTxPrice,
+  toPriceList,
+} from "../models/Price";
 
 const Home: React.FC<{
   priceList: Price[];
 }> = ({ priceList }) => {
+  const [countryDirection, setCountryDirection] = useState<Direction>();
+  const [promoDirection, setPromoDirection] = useState<Direction>();
+  const [txDirection, setTxDirection] = useState<Direction>();
+  const [search, setSearch] = useState<string>();
+
+  const filteredList = [
+    promoDirection ? sortByPromoPrice(promoDirection) : noOpFilter,
+    txDirection ? sortByTxPrice(txDirection) : noOpFilter,
+    countryDirection ? sortByCountry(countryDirection) : noOpFilter,
+    search ? filterBySearch(search) : noOpFilter,
+  ].reduce((acc, filter) => filter(acc), priceList);
+
   return (
     <>
       <table>
@@ -18,7 +39,7 @@ const Home: React.FC<{
           </tr>
         </thead>
         <tbody>
-          {priceList.map((_) => (
+          {filteredList.map((_) => (
             <tr>
               <td>{_.country}</td>
               <td>{_.name}</td>

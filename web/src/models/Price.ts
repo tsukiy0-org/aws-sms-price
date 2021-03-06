@@ -18,3 +18,65 @@ export const toPriceList = (awsPriceList: AwsPriceList): readonly Price[] => {
     return [...acc, ...rows];
   }, [] as readonly Price[]);
 };
+
+export type PriceListFilter = (input: Price[]) => Price[];
+
+export type Direction = 1 | -1;
+
+export const noOpFilter: PriceListFilter = (input) => input;
+
+export const filterBySearch: (search: string) => PriceListFilter = (search) => (
+  input,
+) => {
+  return input.filter((_) =>
+    _.country.toLocaleLowerCase().includes(search.toLocaleLowerCase()),
+  );
+};
+
+export const sortByCountry: (direction: Direction) => PriceListFilter = (
+  direction,
+) => (input) => {
+  return input.sort((a, b) => {
+    if (a.country < b.country) {
+      return direction * -1;
+    }
+
+    if (a.country > b.country) {
+      return direction * 1;
+    }
+
+    return 0;
+  });
+};
+
+export const sortByPromoPrice: (direction: Direction) => PriceListFilter = (
+  direction,
+) => (input) => {
+  return input.sort((a, b) => {
+    if (a.promoPrice < b.promoPrice) {
+      return direction * -1;
+    }
+
+    if (a.promoPrice > b.promoPrice) {
+      return direction * 1;
+    }
+
+    return 0;
+  });
+};
+
+export const sortByTxPrice: (direction: Direction) => PriceListFilter = (
+  direction,
+) => (input) => {
+  return input.sort((a, b) => {
+    if (a.transPrice < b.transPrice) {
+      return direction * -1;
+    }
+
+    if (a.transPrice > b.transPrice) {
+      return direction * 1;
+    }
+
+    return 0;
+  });
+};
