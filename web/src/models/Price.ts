@@ -21,9 +21,7 @@ export const toPriceList = (awsPriceList: AwsPriceList): readonly Price[] => {
 
 export type PriceListFilter = (input: Price[]) => Price[];
 
-export type Direction = 1 | -1;
-
-export const noOpFilter: PriceListFilter = (input) => input;
+export type Direction = 1 | 0 | -1;
 
 export const filterBySearch: (search: string) => PriceListFilter = (search) => (
   input,

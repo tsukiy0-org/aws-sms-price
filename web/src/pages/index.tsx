@@ -3,7 +3,6 @@ import { GetStaticProps } from "next";
 import { AwsPriceList } from "../models/AwsPriceList";
 import {
   Direction,
-  noOpFilter,
   Price,
   filterBySearch,
   sortByCountry,
@@ -12,30 +11,89 @@ import {
   toPriceList,
 } from "../models/Price";
 
+const SortIcon: React.FC<{
+  direction: Direction;
+}> = ({ direction }) => {
+  switch (direction) {
+    case 0:
+      return null;
+    case 1:
+      return <>⬆</>;
+    case -1:
+      return <>⬇</>;
+    default:
+      return null;
+  }
+};
+
 const Home: React.FC<{
   priceList: Price[];
 }> = ({ priceList }) => {
-  const [countryDirection, setCountryDirection] = useState<Direction>();
-  const [promoDirection, setPromoDirection] = useState<Direction>();
-  const [txDirection, setTxDirection] = useState<Direction>();
-  const [search, setSearch] = useState<string>();
+  const [countryDirection, setCountryDirection] = useState<Direction>(0);
+  const [promoDirection, setPromoDirection] = useState<Direction>(0);
+  const [txDirection, setTxDirection] = useState<Direction>(0);
+  const [search, setSearch] = useState<string>("");
 
   const filteredList = [
-    promoDirection ? sortByPromoPrice(promoDirection) : noOpFilter,
-    txDirection ? sortByTxPrice(txDirection) : noOpFilter,
-    countryDirection ? sortByCountry(countryDirection) : noOpFilter,
-    search ? filterBySearch(search) : noOpFilter,
+    sortByPromoPrice(promoDirection),
+    sortByTxPrice(txDirection),
+    sortByCountry(countryDirection),
+    filterBySearch(search),
   ].reduce((acc, filter) => filter(acc), priceList);
+
+  const bumpDirection = (current): Direction => {
+    switch (current) {
+      case 0:
+        return 1;
+      case 1:
+        return -1;
+      case -1:
+        return 0;
+      default:
+        return 0;
+    }
+  };
 
   return (
     <>
+      <label htmlFor="search">
+        Search
+        <input
+          type="text"
+          id="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </label>
+
       <table>
         <thead>
           <tr>
-            <th>country</th>
+            <th
+              onClick={() => {
+                setCountryDirection(bumpDirection(countryDirection));
+              }}
+            >
+              country
+              <SortIcon direction={countryDirection} />
+            </th>
             <th>carrier</th>
-            <th>price (tx)</th>
-            <th>price (promo)</th>
+            <th
+              onClick={() => {
+                setTxDirection(bumpDirection(txDirection));
+              }}
+            >
+              price (tx)
+              <SortIcon direction={txDirection} />
+            </th>
+            <th
+              onClick={() => {
+                setPromoDirection(bumpDirection(promoDirection));
+              }}
+            >
+              price (promo)
+              <SortIcon direction={promoDirection} />
+            </th>
           </tr>
         </thead>
         <tbody>
