@@ -1,4 +1,6 @@
-export type Price = {
+import { CountryCode } from "./CountryCode";
+
+export type AwsPrice = {
   mcc: string;
   mnc: string;
   name: string;
@@ -8,6 +10,4 @@ export type Price = {
   promoDeliverability: number;
 };
 
-export type CountryCode = string;
-
-export type PriceList = Record<CountryCode, readonly Price[]>;
+export type AwsPriceList = Record<CountryCode, readonly AwsPrice[]>;
