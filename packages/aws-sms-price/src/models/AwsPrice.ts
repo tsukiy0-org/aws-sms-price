@@ -1,5 +1,3 @@
-import { CountryCode } from "./CountryCode";
-
 export type AwsPrice = {
   mcc: string;
   mnc: string;
@@ -13,4 +11,3 @@ export type AwsPrice = {
   tenDlcCarrierFee?: number;
   tenDlcDomesticPrice?: number;
 };
-
