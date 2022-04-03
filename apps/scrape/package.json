@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint \"./src/**/*.ts\"",
     "typecheck": "tsc --noEmit",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "prebuild": "rm -rf dist",
     "build": "tsc --rootDir src --outDir dist",
     "dev": "ts-node src/generate.ts"
