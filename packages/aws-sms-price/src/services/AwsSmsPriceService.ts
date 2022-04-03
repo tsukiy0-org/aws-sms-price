@@ -14,7 +14,7 @@ export class AwsSmsPriceService {
     return Object.keys(this.db);
   };
 
-  getTransactionalPricesByCountry = (countryCode: CountryCode): AwsPrice[] => {
+  getCountryTransactionalPrices = (countryCode: CountryCode): AwsPrice[] => {
     if (!this.hasCountry(countryCode)) {
       throw new Error(`Country code "${countryCode}" not found`);
     }

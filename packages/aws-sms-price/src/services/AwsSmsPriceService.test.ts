@@ -31,7 +31,7 @@ describe("AwsSmsPriceService", () => {
 
   describe("getCountryTransactionalPrices", () => {
     it("when given country code then gets transactional prices", () => {
-      const actual = service.getTransactionalPricesByCountry("US");
+      const actual = service.getCountryTransactionalPrices("US");
 
       expect(actual).toEqual([
         {
@@ -49,11 +49,17 @@ describe("AwsSmsPriceService", () => {
         },
       ]);
     });
+
+    it("when country not in price list then throw", () => {
+      const action = () => service.getCountryTransactionalPrices("ABCD");
+
+      expect(action).toThrowError();
+    });
   });
 
   describe("getCountryPoromotionalPrices", () => {
     it("when given country code then gets transactional prices", () => {
-      const actual = service.getTransactionalPricesByCountry("US");
+      const actual = service.getCountryTransactionalPrices("US");
 
       expect(actual).toEqual([
         {
@@ -70,6 +76,12 @@ describe("AwsSmsPriceService", () => {
           tenDlcDomesticPrice: 0.00581,
         },
       ]);
+    });
+
+    it("when country not in price list then throw", () => {
+      const action = () => service.getCountryPromotionalPrices("ABCD");
+
+      expect(action).toThrowError();
     });
   });
 });
