@@ -10,12 +10,5 @@
     "dbaeumer.vscode-eslint",
     "github.copilot",
     "esbenp.prettier-vscode"
-  ],
-  "forwardPorts": [
-    3000
-  ],
-  "hostRequirements": {
-    "cpus": 4,
-    "memory": "8gb"
-  }
+  ]
 }
