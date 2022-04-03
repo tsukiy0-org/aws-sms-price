@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "lint": "eslint \"./src/**/*.ts\"",
     "typecheck": "tsc --noEmit",

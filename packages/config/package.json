@@ -17,6 +17,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "7.28.0",
     "jest": "^27.5.1",
+    "next": "^12.1.4",
     "prettier": "^2.6.2"
   }
 }
