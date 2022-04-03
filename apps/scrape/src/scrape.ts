@@ -10,7 +10,7 @@ const main = async () => {
 
   const file = path.resolve(
     __dirname,
-    "../../../packages/aws-sms-price/src/prices.json"
+    "../../../packages/aws-sms-price/src/services/data.json"
   );
 
   fs.writeFileSync(file, await res.text());
