@@ -10,9 +10,11 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "test": "turbo run test --parallel",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "version:release": "lerna version --force-publish --no-git-tag-version --conventional-commits --conventional-graduate -m \"chore: version\""
   },
   "devDependencies": {
+    "lerna": "^4.0.0",
     "turbo": "latest"
   },
   "engines": {
