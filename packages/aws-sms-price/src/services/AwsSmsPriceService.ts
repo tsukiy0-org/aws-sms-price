@@ -1,4 +1,9 @@
-import { AwsPrice, AwsPriceList, CountryCode } from "../models";
+import {
+  AwsPrice,
+  AwsPriceList,
+  CountryCode,
+  CountryCodeNotFoundError,
+} from "../models";
 import data from "./data.json";
 
 export class AwsSmsPriceService {
@@ -16,7 +21,7 @@ export class AwsSmsPriceService {
 
   getCountryTransactionalPrices = (countryCode: CountryCode): AwsPrice[] => {
     if (!this.hasCountry(countryCode)) {
-      throw new Error(`Country code "${countryCode}" not found`);
+      throw new CountryCodeNotFoundError(countryCode);
     }
 
     return this.db[countryCode].transactional;
@@ -24,7 +29,7 @@ export class AwsSmsPriceService {
 
   getCountryPromotionalPrices = (countryCode: CountryCode): AwsPrice[] => {
     if (!this.hasCountry(countryCode)) {
-      throw new Error(`Country code "${countryCode}" not found`);
+      throw new CountryCodeNotFoundError(countryCode);
     }
 
     return this.db[countryCode].transactional;

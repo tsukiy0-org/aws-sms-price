@@ -1,3 +1,4 @@
+import { CountryCodeNotFoundError } from "../models";
 import { AwsSmsPriceService } from "./AwsSmsPriceService";
 
 describe("AwsSmsPriceService", () => {
@@ -53,7 +54,7 @@ describe("AwsSmsPriceService", () => {
     it("when country not in price list then throw", () => {
       const action = () => service.getCountryTransactionalPrices("ABCD");
 
-      expect(action).toThrowError();
+      expect(action).toThrowError(CountryCodeNotFoundError);
     });
   });
 
@@ -81,7 +82,7 @@ describe("AwsSmsPriceService", () => {
     it("when country not in price list then throw", () => {
       const action = () => service.getCountryPromotionalPrices("ABCD");
 
-      expect(action).toThrowError();
+      expect(action).toThrowError(CountryCodeNotFoundError);
     });
   });
 });
