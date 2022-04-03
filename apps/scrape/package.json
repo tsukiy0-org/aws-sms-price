@@ -1,6 +1,7 @@
 {
-  "name": "@tsukiy0/aws-sms-price",
+  "name": "scrape",
   "version": "0.0.0",
+  "private": true,
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
@@ -8,12 +9,14 @@
     "typecheck": "tsc --noEmit",
     "test": "jest",
     "prebuild": "rm -rf dist",
-    "build": "tsc --rootDir src --outDir dist"
+    "build": "tsc --rootDir src --outDir dist",
+    "dev": "ts-node src/generate.ts"
   },
   "dependencies": {},
   "devDependencies": {
     "config": "*",
     "cross-fetch": "^3.1.5",
+    "ts-node": "^10.7.0",
     "tsconfig": "*",
     "typescript": "^4.5.3"
   }
